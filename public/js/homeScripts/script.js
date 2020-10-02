@@ -1,6 +1,8 @@
-// const serviceWorker = require('./sw_cache_pages');
+// Registering Service worker
 if(navigator.serviceWorker) {
-    navigator.serviceWorker.register('/js/homeScripts/sw_cache_pages.js')
+    navigator.serviceWorker.register('/sw_cache_pages.js', {
+      scope: '/'
+    })
       .then(reg => {
         console.log('Service worker : Registered')
       })
