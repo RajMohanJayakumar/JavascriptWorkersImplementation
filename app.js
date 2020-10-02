@@ -2,7 +2,8 @@ const express = require('express');
 const webPush = require('web-push');
 const homeRoute = require('./routes/homeRoute');
 const serviceWorkerRoute = require('./routes/serviceWorkerRoute');
-const dedicatedWorkerroute = require('./routes/dedicatedWorkerRoute')
+const dedicatedWorkerRoute = require('./routes/dedicatedWorkerRoute');
+const sharedWorkerRoute = require('./routes/sharedWorkerRoute');
 
 const app = express();
 app.use(express.static(__dirname+'/public'))
@@ -14,7 +15,8 @@ app.use(express.json());
 
 app.use('/', homeRoute);
 app.use('/service_worker', serviceWorkerRoute);
-app.use('/dedicated_worker', dedicatedWorkerroute);
+app.use('/dedicated_worker', dedicatedWorkerRoute);
+app.use('/shared_worker', sharedWorkerRoute);
 
 app.get('/clean', (req, res) => {
     res.set('Clear-Site-Data', '\"storage\"');

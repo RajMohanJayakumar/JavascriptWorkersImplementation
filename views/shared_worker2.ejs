@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workers</title>
+</head>
+<body>
+    <main>
+        <h2><%- title %></h2>
+        <p><%- description %></p>
+      </main>
+      <%- include('../public/includes/header.ejs') %>
+      <input type="number" id="input-1" />
+        <input type="number" id="input-2" />
+        <button id='multiply'>Multiply</button>
+        <h2>Result : <span id="result"></span></h2>
+
+      <script>
+        let input1 = document.getElementById('input-1');
+        let input2 = document.getElementById('input-2');
+        let multiply = document.getElementById('multiply');
+        let result = document.getElementById('result');
+
+        if(window.SharedWorker) {
+            let calculationWorker = new SharedWorker("/js/sharedWorkerScripts/sharedworker.js");
+            multiply.onclick = () => {
+              calculationWorker.port.postMessage({
+                action: 'multiply',
+                values: [+input1.value, +input2.value],
+              })
+            }
+
+            calculationWorker.port.onmessage = (e) => {
+              result.innerText = e.data;
+            }
+          }
+      </script>
+</body>
+</html>
