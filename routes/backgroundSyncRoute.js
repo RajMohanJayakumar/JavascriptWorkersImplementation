@@ -1,5 +1,5 @@
 const express = require('express');
-const backgroundSyncController = require('../controller/backgroundSyncController')
+const backgroundSyncController = require('../controllers/backgroundSyncController')
 const route = express.Router();
 
 route.get('/', backgroundSyncController.renderBackgroundSyncPage);

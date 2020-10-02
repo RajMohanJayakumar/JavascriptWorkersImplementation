@@ -20,6 +20,14 @@ function preCaching(){
         .then(cache => {
             cache.addAll([
                     '/',
+                    '/service_worker',
+                    '/dedicated_worker',
+                    '/shared_worker/1',
+                    '/shared_worker/2',
+                    '/background_sync',
+                    '/notification/local', 
+                    '/notification/push', 
+                    '/stylesheets/style.css',
                 ])
         })
         .then(response => res(response))

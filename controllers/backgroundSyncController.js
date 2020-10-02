@@ -6,7 +6,6 @@ exports.renderBackgroundSyncPage = (req, res) => {
 }
 
 exports.getDataFromBody = (req, res) => {
-    console.log('Hey')
     console.log(req.body);
     res.status(200).send();
 }

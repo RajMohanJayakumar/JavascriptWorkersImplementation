@@ -4,7 +4,8 @@ const homeRoute = require('./routes/homeRoute');
 const serviceWorkerRoute = require('./routes/serviceWorkerRoute');
 const dedicatedWorkerRoute = require('./routes/dedicatedWorkerRoute');
 const sharedWorkerRoute = require('./routes/sharedWorkerRoute');
-const backgroundSyncRoute = require('./routes/backgroundSyncRoute')
+const backgroundSyncRoute = require('./routes/backgroundSyncRoute');
+const notificationRoute = require('./routes/notificationRoute');
 
 const app = express();
 app.use(express.json());
@@ -18,10 +19,19 @@ app.use('/service_worker', serviceWorkerRoute);
 app.use('/dedicated_worker', dedicatedWorkerRoute);
 app.use('/shared_worker', sharedWorkerRoute);
 app.use('/background_sync', backgroundSyncRoute);
+app.use('/notification', notificationRoute);
 
 app.get('/clean', (req, res) => {
     res.set('Clear-Site-Data', '\"storage\"');
     res.end();
 })
+
+//To accept cross origin requests
+/* app.options('*', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Add other headers here
+    res.setHeader('Access-Control-Allow-Methods', 'POST'); // Add other methods here
+    res.send();
+}); */
 
 app.listen(4000)

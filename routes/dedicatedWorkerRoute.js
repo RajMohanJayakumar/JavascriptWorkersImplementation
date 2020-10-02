@@ -1,5 +1,5 @@
 const express = require('express');
-const dedicated_worker = require('../controller/dedicatedWorkerController')
+const dedicated_worker = require('../controllers/dedicatedWorkerController')
 
 const route = express.Router();
 
