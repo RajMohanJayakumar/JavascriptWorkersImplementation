@@ -8,21 +8,23 @@ db.version(1).stores({
 db.open();
 
 self.addEventListener('install', (event) => {
-    event.waitUntil(() => self.skipWaiting())
+    self.skipWaiting()
 })
 
 self.addEventListener('activate', (event) => {
-    event.waitUntil(() => self.clients.claim())
+    self.clients.claim()
 })
 
 self.addEventListener('sync', (e) => {
         if(e.tag === 'sync-user'){
-            db.backgroundSyncTable.toArray()
+            e.waitUntil(
+                db.backgroundSyncTable.toArray()
                 .then(syncData => {
                     sendBulkRequest(syncData)
                 })
                 // .then(() => db.backgroundSyncTable.clear())          // to delete the table if all the requests are processed
                 .catch(err => console.error('Sync failed'+err))
+                )
         }
 })
 
