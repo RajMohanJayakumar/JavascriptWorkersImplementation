@@ -10,3 +10,4 @@ if(navigator.serviceWorker) {
         console.error(`Error in registering service worker : ${err}`)
       })
   }
+  
