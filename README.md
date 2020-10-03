@@ -5,3 +5,10 @@ To run :
    3. run `npm start`
    4. Application will start running on port:4000
    
+ # This Project Contains:
+  1. Dedicated worker
+  2. Shared Worker
+  3. Service worker
+  4. Background sync
+  5. Push Notification
+  
