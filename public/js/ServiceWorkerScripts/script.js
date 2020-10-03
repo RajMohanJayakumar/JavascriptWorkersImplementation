@@ -24,7 +24,7 @@ imageId.onkeypress = function(event){
 }
 
 function showImagePreview() {
-    if(imageId.value){
+    if(imageId.value) {
         imagePreview.src = imageBaseUrl+imageId.value;
     }
 }

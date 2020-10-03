@@ -3,15 +3,15 @@ const cacheVersion = 'sw_cached_images';
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(cacheVersion)
-        .then(self.skipWaiting())
+        .then(() => self.skipWaiting())
     )})
 
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys()
             .then(allCaches => {
-                return Promise.all(allCaches.map(cache => {
-                    if(cache !== cacheVersion && cache !== 'sw_cached_pages') {              // 'sw_cached_pages is an another cache is in use 
+                return Promise.all(allCaches.map((cache) => {
+                    if(cache !== cacheVersion) {
                         return caches.delete(cache)
                     }
                 }))
@@ -22,7 +22,7 @@ self.addEventListener('activate', (event) => {
     )})
 
     self.addEventListener('fetch', (event) => {
-        if(!event.request.url.includes('http://picsum.photos/500')) { return event.respondWith(fetch(event.request))}
+        if(!event.request.url.includes('http://picsum.photos/500')) { return; }
             event.respondWith(
                 caches.match(event.request)
                 .then(res => {
@@ -39,7 +39,7 @@ self.addEventListener('activate', (event) => {
                                         return cache.put(event.request, response)
                                     })
                                     .then(() => res)
-                            })
+                            }).catch(console.error)
                 })
             )
     })

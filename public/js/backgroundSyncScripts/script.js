@@ -19,7 +19,12 @@ db.version(1).stores({
 db.open();
 
 sendButton.onclick = () => {
-    db.backgroundSyncTable.add({id: getRandomString(5), name: name.value, city: city.value, isSynced: false})
+    db.backgroundSyncTable.add({
+        id: getRandomString(5), 
+        name: name.value, 
+        city: city.value, 
+        isSynced: false
+    })
     .then(() => {
         if('serviceWorker' in navigator && 'SyncManager' in window) {
             navigator.serviceWorker.ready.then(sw => {

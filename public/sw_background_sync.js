@@ -16,13 +16,15 @@ self.addEventListener('activate', (event) => {
 })
 
 self.addEventListener('sync', (e) => {
-        if(e.tag === 'sync-user'){
+        if(e.tag === 'sync-user') {
             e.waitUntil(
                 db.backgroundSyncTable.toArray()
                 .then(syncData => {
+                setTimeout(() => {
                     sendBulkRequest(syncData)
+                }, 4000);
                 })
-                // .then(() => db.backgroundSyncTable.clear())          // to delete the table if all the requests are processed
+                .then(() => db.backgroundSyncTable.clear())          // to delete the table if all the requests are processed
                 .catch(err => console.error('Sync failed'+err))
                 )
         }
@@ -46,7 +48,7 @@ function sendBulkRequest(syncData) {
                     city,
                 })
             })
-            .then(() => db.backgroundSyncTable.put({id, name, city, isSynced:true}));
+            .then(() => db.backgroundSyncTable.put({id, name, city, isSynced: true}));
 
         });
 
