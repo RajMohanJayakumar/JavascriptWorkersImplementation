@@ -64,7 +64,6 @@ function networkFirst(request){
 }
 
 function cacheFirst(request) {
-    console.log('cc')
     return caches.match(request)
                 .then(cache => {
                     if(cache){

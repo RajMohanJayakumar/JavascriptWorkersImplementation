@@ -11,7 +11,7 @@ self.addEventListener('activate', (event) => {
         caches.keys()
             .then(allCaches => {
                 return Promise.all(allCaches.map(cache => {
-                    if(cache !== cacheVersion && cache !== 'sw_cached_pages') {              // 'sw_cached_pages is an another cache is in use 
+                    if(cache !== cacheVersion) {
                         return caches.delete(cache)
                     }
                 }))

@@ -16,4 +16,8 @@ if(window.Worker){
     calculationWorker.onmessage = (e) => {
       result.innerText = e.data;
     }
+} else {
+  multiply.onclick = () => {
+    result.innerText = +input1.value * +input2.value
+    }
 }
