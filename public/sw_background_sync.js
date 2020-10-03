@@ -17,19 +17,21 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('sync', (e) => {
         if(e.tag === 'sync-user'){
             db.backgroundSyncTable.toArray()
-                .then(val => {
-                    return sendBulkRequest(val)
+                .then(syncData => {
+                    sendBulkRequest(syncData) 
                 })
                 // .then(() => db.backgroundSyncTable.clear())          // to delete the table if all the requests are processed
                 .catch(err => console.error('Sync failed'+err))
         }
 })
 
-function sendBulkRequest(values) {
-    return new Promise((res, rej) => {
-        const bulkFetchCall = values.map(element => {
-            if(element.isSynced) { return; }
-            const { id, name, city } = element;
+function sendBulkRequest(syncData) {
+        const bulkFetchCall = syncData.map((data) => {
+
+            if(data.isSynced) { return; }
+
+            const { id, name, city } = data;
+
             return fetch('/background_sync/postdata', {
                 method: 'POST',
                 headers:{
@@ -40,11 +42,10 @@ function sendBulkRequest(values) {
                     name,
                     city,
                 })
-            }).then(() => db.backgroundSyncTable.put({id, name, city, isSynced:true}))
+            })
+            .then(() => db.backgroundSyncTable.put({id, name, city, isSynced:true}));
+
         });
 
-        Promise.all(bulkFetchCall)
-        .then(() => res(''))
-        .catch((err) => { console.log(err); rej('');})
-    })
+        return Promise.all(bulkFetchCall);
 }

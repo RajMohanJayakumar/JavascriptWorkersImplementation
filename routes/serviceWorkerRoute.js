@@ -6,4 +6,3 @@ const serviceWorkerController = require('../controllers/serviceWorkerController'
 route.get('/', serviceWorkerController.getSW);
 
 module.exports = route;
-

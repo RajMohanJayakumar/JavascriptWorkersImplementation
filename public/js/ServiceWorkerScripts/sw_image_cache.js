@@ -22,15 +22,12 @@ self.addEventListener('activate', (event) => {
     )})
 
     self.addEventListener('fetch', (event) => {
-        console.log('feeeee')
         if(!event.request.url.includes('http://picsum.photos/500')) { return event.respondWith(fetch(event.request))}
-        console.log(event.request)
             event.respondWith(
                 caches.match(event.request)
                 .then(res => {
 
                     if(res){
-                        console.log('From Cache')
                         return res;
                     }
 
@@ -39,7 +36,6 @@ self.addEventListener('activate', (event) => {
                                 return caches.open(cacheVersion)
                                     .then(cache => {
                                         const response = res.clone();
-                                        console.log(response)
                                         return cache.put(event.request, response)
                                     })
                                     .then(() => res)

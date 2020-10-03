@@ -25,9 +25,9 @@ exports.pushNotificationToServer = (req, res) => {
     const subscription = data.subscription;
     const notificationPayload = data.payload;
 
-    res.status(200).json({});
-
     const payload = JSON.stringify(notificationPayload);
 
-    webpush.sendNotification(subscription, payload).catch(console.error);
+    webpush.sendNotification(subscription, payload)
+    .catch(console.error)
+    res.status(200).json({});
 }

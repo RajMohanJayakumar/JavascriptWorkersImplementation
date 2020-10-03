@@ -2,7 +2,7 @@ const publicKey = 'BH0qq3x0keUa2ptC64C1_WvBZMv60YJYXUjM0r9PumZcILFRlLoUGVcagF_9x
 let subscription;
 
 if('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw_push_notification.js',{
+    navigator.serviceWorker.register('/sw_push_notification.js', {
         scope: '/notification'
     })
     .then(sw => {
